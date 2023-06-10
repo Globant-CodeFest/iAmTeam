@@ -18,9 +18,10 @@
             "esri/renderers/SimpleRenderer",
             "esri/symbols/SimpleMarkerSymbol",
             "esri/widgets/TimeSlider",
-            "esri/TimeExtent"
-
-        ], function(esriConfig, Map, MapView, FeatureLayer, SimpleRenderer, SimpleMarkerSymbol, TimeSlider, TimeExtent) {
+            "esri/TimeExtent",
+            "esri/tasks/support/Query",
+            "esri/tasks/QueryTask",
+        ], function(esriConfig, Map, MapView, FeatureLayer, SimpleRenderer, SimpleMarkerSymbol, TimeSlider, TimeExtent, Query, QueryTask) {
             esriConfig.apiKey = 'AAPK48334d5601c04fe3aafa7b01d273eecfzQ20E8Nb49h8K8lD3VnzSax7pzGza7exq_YO_DhCp-zUbY9V7NYWpk1sQnb8d79r';
 
             var map = new Map({
@@ -51,36 +52,65 @@
                 renderer: renderer,
                 definitionExpression: "Year > 1970" // SQL expression to filter data
             });
-
-            var timeSlider = new TimeSlider({
-                container: "timeSliderDiv", // HTML element ID for the TimeSlider
-                view: view // MapView
-            });
     
-            // Create a custom TimeExtent
-            var customTimeExtent = new TimeExtent({
-                start: new Date(2000, 0, 1), // Start date (year, month, day)
-                end: new Date(2020, 11, 31)  // End date (year, month, day)
+            var queryTask = new QueryTask({
+                url: layerUrl
             });
-
-            // Create the TimeSlider
-            var timeSlider = new TimeSlider({
-                container: "timeSliderDiv", // HTML element ID for the TimeSlider
-                view: view, // MapView
-                fullTimeExtent: customTimeExtent,
-                stops: {
-                    interval: {
-                        value: 1,
-                        unit: "years"
-                    }
+        
+            var query = new Query();
+            query.returnGeometry = false;
+            query.outStatistics = [
+                {
+                    statisticType: "min",
+                    onStatisticField: "Year",
+                    outStatisticFieldName: "minDate"
+                },
+                {
+                    statisticType: "max",
+                    onStatisticField: "Year",
+                    outStatisticFieldName: "maxDate"
                 }
+            ];
+        
+            queryTask.execute(query).then(function(result) {
+                var statistics = result.features[0].attributes;
+                var minDate = new Date(statistics.minDate);
+                var maxDate = new Date(statistics.maxDate);
+        
+                var fullTimeExtent = new TimeExtent({
+                    start: minDate,
+                    end: maxDate
+                });
+        
+                var timeSlider = new TimeSlider({
+                    container: "timeSliderDiv",
+                    fullTimeExtent: fullTimeExtent
+                });
+        
             });
 
-            // Add the TimeSlider to the view
-            view.ui.add(timeSlider, "bottom-right");
+            /*view.when(function() {
+                // Create the TimeSlider
+                var timeSlider = new TimeSlider({
+                    container: "timeSliderDiv",
+                    view: view,
+                    fullTimeExtent: customTimeExtent,
+                    stops: {
+                        interval: {
+                            value: 1,
+                            unit: "years"
+                        }
+                    }
+                });
+            
+                // Add the TimeSlider to the view's UI
+                view.ui.add(timeSlider, "bottom-right");
+            });*/
 
             // Add the layer to the map
             map.add(featureLayer);
+
+            var timeField = featureLayer.timeInfo.timeField;
 
             // Error handling for layer creation
             view.on("layerview-create-error", function(event) {
