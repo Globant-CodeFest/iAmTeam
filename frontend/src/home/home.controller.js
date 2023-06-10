@@ -7,7 +7,7 @@
         require([
             "esri/config"
         ], function(esriConfig) {
-            esriConfig.apiKey = process.env.ARGIS_API_KEY;
+            esriConfig.apiKey = 'AAPK48334d5601c04fe3aafa7b01d273eecfzQ20E8Nb49h8K8lD3VnzSax7pzGza7exq_YO_DhCp-zUbY9V7NYWpk1sQnb8d79r';
         });
 
         require([
