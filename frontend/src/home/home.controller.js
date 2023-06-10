@@ -21,7 +21,8 @@
             "esri/TimeExtent",
             "esri/tasks/support/Query",
             "esri/tasks/QueryTask",
-        ], function(esriConfig, Map, MapView, FeatureLayer, SimpleRenderer, SimpleMarkerSymbol, TimeSlider, TimeExtent, Query, QueryTask) {
+            "esri/TimeInterval"
+        ], function(esriConfig, Map, MapView, FeatureLayer, SimpleRenderer, SimpleMarkerSymbol, TimeSlider, TimeExtent, Query, QueryTask, TimeInterval) {
             esriConfig.apiKey = 'AAPK48334d5601c04fe3aafa7b01d273eecfzQ20E8Nb49h8K8lD3VnzSax7pzGza7exq_YO_DhCp-zUbY9V7NYWpk1sQnb8d79r';
 
             var map = new Map({
@@ -31,8 +32,8 @@
             var view = new MapView({
                 container: "viewDiv", // ID of the element to bind the map
                 map: map,
-                zoom: 4,
-                center: [15, 65] // Longitude, latitude
+                zoom: 3,
+                center: [-74.07, 4.7] // Longitude, latitude
             });
 
             // Create the FeatureLayer
@@ -50,7 +51,7 @@
             var featureLayer = new FeatureLayer({
                 url: layerUrl,
                 renderer: renderer,
-                definitionExpression: "Year > 1970" // SQL expression to filter data
+                //definitionExpression: "Year > 1970" // SQL expression to filter data
             });
     
             var queryTask = new QueryTask({
@@ -74,43 +75,42 @@
         
             queryTask.execute(query).then(function(result) {
                 var statistics = result.features[0].attributes;
-                var minDate = new Date(statistics.minDate);
-                var maxDate = new Date(statistics.maxDate);
+                var minDate = new Date(statistics.minDate, 0, 1);
+                var maxDate = new Date(statistics.maxDate, 11, 31);
         
                 var fullTimeExtent = new TimeExtent({
                     start: minDate,
                     end: maxDate
                 });
-        
+
                 var timeSlider = new TimeSlider({
                     container: "timeSliderDiv",
-                    fullTimeExtent: fullTimeExtent
+                    fullTimeExtent: fullTimeExtent,
                 });
-        
+
+                var featureLayerView;
+
+                view.whenLayerView(featureLayer).then(function(layerView) {
+                    featureLayerView = layerView;
+
+                    // Watch for changes in the timeSlider's timeExtent property
+                    timeSlider.watch("timeExtent", function(newTimeExtent) {
+                        var startYear = newTimeExtent.start.getFullYear();
+                        var endYear = newTimeExtent.end.getFullYear();
+
+                        // Filter the features based on the selected time extent
+                        featureLayerView.filter = {
+                            where: "Year >= " + startYear + " AND Year <= " + endYear
+                        };
+                    });
+                });
+
+                // Add the TimeSlider widget to the view
+                view.ui.add(timeSlider, "bottom");
+
+                // Add the layer to the map
+                map.add(featureLayer);
             });
-
-            /*view.when(function() {
-                // Create the TimeSlider
-                var timeSlider = new TimeSlider({
-                    container: "timeSliderDiv",
-                    view: view,
-                    fullTimeExtent: customTimeExtent,
-                    stops: {
-                        interval: {
-                            value: 1,
-                            unit: "years"
-                        }
-                    }
-                });
-            
-                // Add the TimeSlider to the view's UI
-                view.ui.add(timeSlider, "bottom-right");
-            });*/
-
-            // Add the layer to the map
-            map.add(featureLayer);
-
-            var timeField = featureLayer.timeInfo.timeField;
 
             // Error handling for layer creation
             view.on("layerview-create-error", function(event) {
