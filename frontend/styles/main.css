@@ -1,0 +1,174 @@
+body{
+    background-color: #f5f5f5;
+}
+.header{
+    background-color: #78BFBF;
+}
+.breadcrumb{
+    background-color: inherit !important;
+}
+.slackIcon {
+    background: url(../assets/images/slack-icon.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 20px;
+    min-width: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -6px 0 0 4px;
+}
+
+.button{
+    border: none;
+    padding: 0 42px;
+    height: 60px;
+    border-radius: 100px;
+    color: #ffffff;
+    background-color: #ed145b;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 23px;
+}
+
+.button:hover {
+    color: #ffffff;
+}
+
+.bot-image{
+    border-radius: 50%;
+}
+.user-image{
+    border-radius: 10%;
+}
+
+.title{
+    color: #ed145b;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 60px;
+}
+
+.title-header{
+    color: #0D0D0D;
+}
+
+.icon-card{
+    width: 30px;
+}
+
+.img-card{
+    width: 160px;
+}
+
+.card-video p{
+    margin: 0 0 0 0;
+    text-align: left;
+}
+
+.card{
+    margin-bottom: 15px;
+    
+}
+
+.delete-video{
+    display: block !important;
+    margin: auto !important;
+    margin-top: 10px !important;
+}
+
+.delete-video button{
+    text-align: center !important;
+    padding: 2px 10px 2px 10px;
+    font-size: 14px;
+}
+
+.card-header a{
+    color: #17a2b8;
+    font-weight: 500;
+}
+
+.card-text button{
+    color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.card-text button:hover{
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.card-body{
+    font-size: 14px;
+    padding-bottom: 10px;
+    padding-top: 15px;
+}
+.home a{
+    font-size: 25px;
+    color: #00596B;
+}
+
+.home .col-md-4{
+    margin-top: 40px;
+}
+
+.img-team-generator {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+textarea {
+    resize: none;
+}
+
+.label-team-generator{
+    line-height: 150px;
+}
+
+.teams-banner{
+    background-color: #1389A3;
+}
+
+.group-a{
+    border: 10px solid #7bb2be;
+}
+
+.group-b{
+    border: 10px solid #a8c1c7;
+}
+
+.teams{
+    border: 10px solid #49727b;
+}
+
+.button-teams{
+    background-color: #1389A3;
+    color: #ffffff;
+}
+
+.button-teams:hover{
+    background-color: #1389A3;
+    color: #ffffff;
+
+}
+
+.button-teams:focus{
+    background-color: #1389A3;
+    color: #ffffff;
+}
+
+.header-card-teams{
+    color: #17a2b8 !important;
+    font-weight: bold;
+    padding-bottom: 1px !important;
+    padding-top: 5px !important;
+}
+
+.text-card-teams{
+    color: #000000;
+}
+
+.text-head{
+    color: #f8f3f3;
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html ng-app="SlackBot" ng-controller="AppController as model">
+
+<head>
+    <title ng-bind="title">iAmCopasstBot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Fav icon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    
+
+    <!-- CSS libraries -->
+    <!--<link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
+    <link href="styles/main.css" rel="stylesheet">
+    <link href="styles/tables.css" rel="stylesheet">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="text-center">
+
+    <!-- header template -->
+    <header ui-view="header"> </header>
+
+    <div class="container" ui-view="main">
+        <!-- modules content binded here -->
+    </div>
+</body>
+
+<!-- Polyfill compatibility IE -->
+<!--<script type="text/javascript" src="src/common/utils/findPolyfill.js"></script>-->
+
+<!-- JavaScript libraries -->
+<script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="node_modules/angular/angular.js"></script>
+<script type="text/javascript" src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+<script type="text/javascript" src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="node_modules/angular-smart-table/dist/smart-table.js"></script>
+<script src="https://js.arcgis.com/4.21/"></script>
+
+
+<!-- Application files and dependencies -->
+<script type="text/javascript" src="app.js"></script>
+
+<!-- Modules -->
+<script type="text/javascript" src="dist/modules/modules.min.js"></script>
+
+<!-- Controllers -->
+<script type="text/javascript" src="dist/controllers/controllers.min.js"></script>
+
+<!-- Services -->
+<script type="text/javascript" src="dist/services/services.min.js"></script>
+
+</html>
