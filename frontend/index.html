@@ -2,7 +2,8 @@
 <html ng-app="SlackBot" ng-controller="AppController as model">
 
 <head>
-    <title ng-bind="title">iAmCopasstBot</title>
+    <title>Fields</title>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Fav icon -->
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon">
@@ -10,12 +11,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     
-
-    <!-- CSS libraries -->
-    <!--<link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="https://js.arcgis.com/4.22/esri/themes/light/main.css">
-    <link href="styles/main.css" rel="stylesheet">
-    <link href="styles/tables.css" rel="stylesheet">
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
     <style>
         .bd-placeholder-img {
@@ -36,9 +35,10 @@
 </head>
 
 <body class="text-center">
-
     <!-- header template -->
-    <header ui-view="header"> </header>
+    <header id="header" class="alt">
+        <h1><a href="index.html">Fields</a></h1>        
+    </header>
 
     <div class="container" ui-view="main">
         <!-- modules content binded here -->
@@ -68,5 +68,7 @@
 
 <!-- Services -->
 <script type="text/javascript" src="dist/services/services.min.js"></script>
+
+
 
 </html>
